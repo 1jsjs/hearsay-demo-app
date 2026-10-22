@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in · Hearsay demo app</title>
+  <style>
+    :root { --bg: #fafaf7; --fg: #1a1a1a; --accent: #ffd400; --muted: #6b6b6b; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #141414; --fg: #f2f2f2; --muted: #a0a0a0; } }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 -apple-system, system-ui, sans-serif; display: grid; place-items: center; min-height: 100vh; }
+    form { width: min(360px, calc(100vw - 32px)); display: grid; gap: 12px; }
+    h1 { margin: 0 0 8px; font-size: 24px; }
+    input { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font: inherit; background: transparent; color: inherit; }
+    button { padding: 12px; border: 0; border-radius: 999px; background: var(--accent); color: #111; font: inherit; font-weight: 600; cursor: pointer; }
+    .hint { color: var(--muted); font-size: 14px; }
+    .error { color: #c0392b; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <form method="post" action="/login">
+    <h1>Sign in</h1>
+    <p class="hint">Demo accounts: <code>jinsu / hunter2</code>, <code>demo / demo</code></p>
+    <input name="username" placeholder="Username" autocomplete="username" required>
+    <input name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+    <input type="hidden" name="next" value="{{next}}">
+    <button type="submit">Sign in</button>
+    <p class="error" id="error" hidden>Wrong username or password.</p>
+  </form>
+  <script>
+    if (new URLSearchParams(location.search).get('error')) document.getElementById('error').hidden = false;
+  </script>
+</body>
+</html>
